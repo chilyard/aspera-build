@@ -24,6 +24,9 @@ fields = cgi.params
 # create an instance of keyvaluecheck
 kvcheck = KeyValueCheck.new
 
+# track the amount of errors found in the submitted data, report back to user
+Errorcount = 0
+
 # loop through the parameters, verify the string value, write it out to the appropriate file(s)
 fields.each_pair do |key,value|
 	# print the values as we process
@@ -37,16 +40,22 @@ fields.each_pair do |key,value|
 	end
 		
 	# for each key/value pair, pass each to the string check class
-	kvcheck.check("#{key}","#{value}")
-	
+	Errorcount = kvcheck.check("#{key}","#{value}")
+
 	# if a check fails, note the error to the user and set a flag so that we don't create
 	# any files or cobbler entries until the errors are fixed and resubmitted
-
 end
 
+# if a check fails, note the error to the user and set a flag so that we don't create
+# any files or cobbler entries until the errors are fixed and resubmitted
+if Errorcount >= 1
+	print "<b>syntax errors found, fix the items above in <font color=red>red</font></b><br>"
+	print "<b>and resubmit.</b>"
+	exit
+end
 
 # after verifying the form data, write out to the necessary files and call cobbler
-
+print "success!<br>"
 
 # create the field_prep.sh script.  this is to be executed prior to shutdown and shipment
 # to the affiliate
