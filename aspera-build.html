@@ -1,0 +1,124 @@
+<html>
+	<body>
+		<form method="POST" action="http://bshe-secm-p001/cgi-bin/aspera-build.rb">
+
+		<b><font color=blue> Aspera Field Docker Build Form</font></b><br><br>
+
+		<fieldset>
+			<legend><b> Host Configuration Options:</b></legend>
+		Hostname: <input type="text" name="hostname" value="" />
+		(format should be asdk-affiliatename-p001)
+		<br />
+
+            Hardware: 
+            <select name="hardware">
+                <option value="3011">SuperMicro 3011</option>
+                <option value="2011">SuperMicro 2011</option>
+            </select>
+            (future functionality)
+            <br />
+		</fieldset>
+
+		<fieldset>
+			<legend><b> ETH0 Management Configuration:</b></legend>
+            eth0/MGMT MAC Address: <input type="text" name="eth0mac" value="" />
+            <br />
+            eth0/MGMT IP Address: <input type="text" name="eth0ip" value="0.0.0.0" />
+            <br />
+            eth0/MGMT SM Address: <input type="text" name="eth0sm" value="0.0.0.0" />
+            <br />
+            eth0/MGMT GW Address: <input type="text" name="eth0gw" value="0.0.0.0" />
+            <br />
+		</fieldset>
+
+		<fieldset>
+			<legend><b> ETH1 ASPERA Network Configuration:</b></legend>
+            eth1/ASPERA MAC Address: <input type="text" name="eth1mac" value="00:00:00:00:00:00" /> 
+            <br />
+            eth1/ASPERA IP Address: <input type="text" name="eth1ip" value="0.0.0.0" /> 
+            <br />
+            eth1/ASPERA SM Address: <input type="text" name="eth1sm" value="0.0.0.0" /> 
+            <br />
+            eth1/ASPERA GW Address: <input type="text" name="eth1gw" value="0.0.0.0" /> 
+            <br />
+		</fieldset>
+
+		<fieldset>
+			<legend><b> ETH2 Affiliate Network Configuration:</b></legend>
+            eth2/Affiliate Network IP Address:  <input type="text" name="eth2ip" value="0.0.0.0" /> 
+            <br />
+            eth2/Affiliate Network SM Address:  <input type="text" name="eth2sm" value="0.0.0.0" /> 
+            <br />
+            eth2/Affiliate Network GW Address:  <input type="text" name="eth2gw" value="0.0.0.0" /> 
+            <br />
+		</fieldset>
+
+		<fieldset>
+			<legend><b> ETH3 Network Configuration:</b></legend>
+            eth3 IP Address: <input type="text" name="eth3ip" value="0.0.0.0" /> 
+            <br />
+            eth3 SM Address: <input type="text" name="eth3sm" value="0.0.0.0" /> 
+            <br />
+            eth3 GW Address: <input type="text" name="eth3gw" value="0.0.0.0" /> 
+            <br />
+		</fieldset>
+
+		<fieldset>
+			<legend><b> ETH4 Network Configuration:</b></legend>
+            eth4 IP Address: <input type="text" name="eth4ip" value="0.0.0.0" /> 
+            <br />
+            eth4 SM Address: <input type="text" name="eth4sm" value="0.0.0.0" /> 
+            <br />
+            eth4 GW Address: <input type="text" name="eth4gw" value="0.0.0.0" /> 
+            <br />
+		</fieldset>
+
+		<fieldset>
+			<legend><b> ETH5 Network Configuration:</b></legend>
+            eth5 IP Address: <input type="text" name="eth5ip" value="0.0.0.0" /> 
+            <br />
+            eth5 SM Address: <input type="text" name="eth5sm" value="0.0.0.0" /> 
+            <br />
+            eth5 GW Address: <input type="text" name="eth5gw" value="0.0.0.0" /> 
+            <br />
+		</fieldset>
+
+		<fieldset>
+			<legend><b> IPMI Managment Configuration:</b></legend>
+            IPMI/MGMT IP Address: <input type="text" name="ipmiip" value="0.0.0.0" /> 
+            <br />
+            IPMI/MGMT SM Address: <input type="text" name="ipmism" value="0.0.0.0" /> 
+            <br />
+            IPMI/MGMT GW Address: <input type="text" name="ipmigw" value="0.0.0.0" /> 
+            <br />
+		</fieldset>
+
+		<fieldset>
+			<legend><b> Aspera Client Configuration:</b></legend>
+            Aspera License Number: <input type="text" name="asplicense" value="" /> 
+            <br />
+		</fieldset>
+
+		<fieldset>
+			<legend><b> FES Configuration (edit only if FES is required):</b></legend>
+            FES Config FTP Push Username: <input type="text" name="fesftpusername" value="" /> 
+            <br />
+            FES Config FTP Push Password: <input type="text" name="fesftppassword" value="" /> 
+            <br />
+            FES Config FTP Push FTP Server IP: <input type="text" name="fesftpserverip" value="0.0.0.0" /> 
+            <br />
+            FES Config SFTP Push Username: <input type="text" name="fessftpusername" value="" /> 
+            <br />
+            FES Config SFTP Push Password: <input type="text" name="fessftppassword" value="" /> 
+            <br />
+            FES Config SFTP Push SFTP Server IP: <input type="text" name="fessftpserverip" value="0.0.0.0" /> 
+            <br />
+		</fieldset>
+
+
+		<input type="submit" value="Submit data">
+		</form>
+
+		<b> Thanks for visiting 1997! </b><br>
+	</body>
+</html>

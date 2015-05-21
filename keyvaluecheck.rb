@@ -1,44 +1,370 @@
 #
 ## use this class to check on the key/value pair passed from the web form
 #
+# crappy implementation.  fix in 1.2
 
 class KeyValueCheck
 
+	## constructor
 	def initialize()
-		print "creating instance of KeyValueCheck<br>" 	
+		print "creating instance of KeyValueCheck<br>" if $Verbose == "TRUE" 	
 	end
 	
+	## check function
 	def check(key,value)
 		case key
-		when "hostname" 
-			print "checking hostname:", value, "<br>"
-			print "length of hostname:", value.length, "<br>"
-			if value.match(/[a-z])
-				print "hostname looks good<br>"
-				return 0
-		when "eth0mac"
-			print "checking eth0mac:", value, "<br>"
-			print "length of mac:", value.length, "<br>"
-			if value.match(/([0-9a-fA-F]{2}[:-]){5}[0-9a-fA-F]{2}/i)
-				print "eth0 MAC looks good<br>"
+		
+		# hostname
+		when "hostname"
+			if value.match("asdk-*-p???")
+				print "hostname looks good<br>" if $Verbose == "TRUE"	
 				return 0
 
-			# let's do a second check.  perhaps the user omitted the colons.  if that's the case
-			# we'll insert the colons for them. string should be 12 chars w/ an alpha-numeric mix
-=begin
-			elsif
-				value.match(/[a-z]{0,12}/i)	
-				print "eth0 MAC matches quantity and type of chars, converting it<br>"
-				#convertedmac = value.gsub(/.{1,2}/, ':')
-				#print "new eth0:", convertedmac, "<br>"
-=end
-			else
-				print "<b><font color=red>eth0 MAC is weird, you'll need to fix it.</font></b><br>"	
+				else
+				print "<b><font color=red>hostname is bad, m'kay.</font></b><br>"
 				return 1
 			end
-		else
-			print "unknown value<br>"
+		
+		# eth0mac
+		when "eth0mac"
+			if value.match(/([0-9a-fA-F]{2}[:-]){5}[0-9a-fA-F]{2}/i)
+				print "eth0 MAC looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>eth0 MAC is bad</font></b><br>"
+				return 1
+			end
+
+		# eth0ip
+		when "eth0ip"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "eth0ip looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>eth0ip is bad, m'kay.</font></b><br>"
+				return 1
 		end
+
+		# eth0sm
+		when "eth0sm"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "eth0sm looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>eth0sm is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# eth0gw
+		when "eth0gw"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "eth0gw looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>eth0gw is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# eth1mac
+		when "eth1mac"
+			if value.match(/([0-9a-fA-F]{2}[:-]){5}[0-9a-fA-F]{2}/i)
+				print "eth1mac looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>eth1mac is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# eth1ip
+		when "eth1ip"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "eth1ip looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>eth1ip is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# eth1sm
+		when "eth1sm"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "eth1sm looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>eth1sm is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# eth1gw
+		when "eth1gw"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "eth1gw looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>eth1gw is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# eth2ip
+		when "eth2ip"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "eth2ip looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>eth2ip is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# eth2sm
+		when "eth2sm"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "eth2sm looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>eth2sm is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# eth2gw
+		when "eth2gw"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "eth2gw looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>eth2gw is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# eth3ip
+		when "eth3ip"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "eth3ip looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>eth3ip is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# eth3sm
+		when "eth3sm"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "eth3sm looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>eth3sm is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# eth3gw
+		when "eth3gw"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "eth3gw looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>eth3gw is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# eth4ip
+		when "eth4ip"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "eth4ip looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>eth4ip is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# eth4sm
+		when "eth4sm"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "eth4sm looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>eth4sm is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# eth4gw
+		when "eth4gw"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "eth4gw looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>eth4gw is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# eth5ip
+		when "eth5ip"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "eth5ip looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>eth5ip is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# eth5sm
+		when "eth5sm"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "eth5sm looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>eth5sm is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# eth5gw
+		when "eth5gw"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "eth5gw looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>eth5gw is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# ipmiip
+		when "ipmiip"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "ipmiip looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>ipmiip is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# ipmism
+		when "ipmism"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "ipmism looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>ipmism is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# ipmigw
+		when "ipmigw"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "ipmigw looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>ipmigw is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# asplicense
+		when "asplicense"
+			if value.match(/[0-9]{1,5}/)
+				print "asplicense looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>asplicense is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# fesftpusername
+		when "fesftpusername"
+			if value.match(/(.*)/)
+				print "fesftpusername looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>fesftpusername is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# fesftppassword
+		when "fesftppassword"
+			if value.match(/(.*)/)
+				print "fesftppassword looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>fesftppassword is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# fesftpserverip
+		when "fesftpserverip"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "fesftpserverip looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>fesftpserverip is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# fessftpusername
+		when "fessftpusername"
+			if value.match(/(.*)/)
+				print "fessftpusername looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>fessftpusername is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# fessftppassword
+		when "fessftppassword"
+			if value.match(/(.*)/)
+				print "fessftppassword looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>fessftppassword is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# fessftpserverip
+		when "fessftpserverip"
+			if value.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i)
+				print "fessftpserverip looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>fessftpserverip is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+
+		# else
+		else
+			print "unknown key: ", key, "<br>"
+			return 0
+		end 
+		## end case statement
 	end
+	## end check function definition
 
 end
+## class end
+
