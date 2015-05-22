@@ -65,11 +65,29 @@ print "<font color=green>syntax check complete!</font><br>"
 
 # create the node.pp file;chown puppet:puppet the node.pp file
 filename = hostname+".pp"
-
-File.open(filename,File::WRONLY|File::CREAT|File::EXCL) do |file|
-	file << "node \'asdk-digitrini-p001\' inherits asdk_us {\n"
-	file << "$asperalicense = asplicense"
+begin
+	File.open(filename,File::WRONLY|File::CREAT|File::EXCL) do |file| 
+	file << "node \'#{hostname}\' inherits asdk_us {\n"
+	file << "  $asperalicense = \"#{asplicense}\"\n"
+	file << ""
+	file << ""
+	file << ""
+	file << ""
+	file << ""
+	file << ""
+	file << ""
+	file << ""
+	file << ""
+	file << ""
+	file << ""
+	file << ""
+	file << " {"
+	end
+rescue SystemCallError 	
+	$stderr.print "IO failed: " + $!
+	raise
 end
+
 
 
 
