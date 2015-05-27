@@ -1,6 +1,6 @@
 #!/bin/env ruby
 
-# we're updating cobbler and puppet node manifest files
+# dumb script to handle data sent from web form /var/www/html/pub/aspera-build.html
 # 
 # puppet #
 # specifically /etc/puppet/manifests/mynodes/FIELD/hostname.pp
@@ -11,7 +11,7 @@
 #
 #
 
-$Verbose = "TRUE"
+$Verbose = "FALSE"
 
 print "Content-type: text/html\n\n"
 print "<html><body><font color=green>performing syntax check</font><br></body></html>"
@@ -55,40 +55,39 @@ end
 print "Errorcount >= 1:", Errorcount, "<br>" if $Verbose == "TRUE"
 if Errorcount >= 1
 	print "<b>syntax errors found, fix the items above in <font color=red>red</font></b><br>"
-	print "<b>and resubmit.</b>"
+	print "<b>and resubmit.</b><br>"
 	exit
 end
 
 # after verifying the form data, write out to the necessary files and call cobbler
 print "<font color=green>syntax check complete!</font><br>"
 
+# create the node.pp file;chown puppet:puppet the newly created node.pp file
+#nodeppFile = "/tmp/",hostname+".pp"
+print "opening file</br>"
 
-# create the node.pp file;chown puppet:puppet the node.pp file
-filename = hostname+".pp"
-begin
-	File.open(filename,File::WRONLY|File::CREAT|File::EXCL) do |file| 
-	file << "node \'#{hostname}\' inherits asdk_us {\n"
-	file << "  $asperalicense = \"#{asplicense}\"\n"
-	file << ""
-	file << ""
-	file << ""
-	file << ""
-	file << ""
-	file << ""
-	file << ""
-	file << ""
-	file << ""
-	file << ""
-	file << ""
-	file << ""
-	file << " {"
-	end
-rescue SystemCallError 	
-	$stderr.print "IO failed: " + $!
-	raise
-end
+nodePPFile = "/tmp/"+fields["hostname"]+".pp"
 
+#print "nodePPFile: ",nodePPFile,"<br>"
 
+#File.exist?(nodePPFile)
+
+File.open("#{nodePPFile}",File::WRONLY|File::CREAT|File::EXCL) { |file| 
+file.print "node \'", fields["hostname"],"\' inherits asdk_us {\n"
+file.print "	$asperalicense = \"",fields["asplicense"],"\"\n"
+file.print "	$ipmiaddr = \"",fields["ipmiip"],"\"\n"
+file.print "	$ipmigw = \"",fields["ipmigw"],"\"\n"
+file.print "	$MGMT = \"eth0\"\n"
+file.print "	$ASP = \"eth1\"\n"
+file.print "	$CUST = \"eth2\"\n"
+file.print "\n"
+file.print "	include asdk_firewalld\n"
+file.print "	include ipmi\n"
+file.print "	include asperaclient\n"
+file.print "	include fes\n"
+file.print " }\n"
+file.close
+}
 
 
 # execute cobbler 
@@ -98,19 +97,6 @@ end
 
 # create the field_prep.sh script.  this is to be executed prior to shutdown and shipment
 # to the affiliate
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

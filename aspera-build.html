@@ -2,12 +2,12 @@
 	<body>
 		<form method="POST" action="http://bshe-secm-p001/cgi-bin/aspera-build.rb">
 
-		<b><font color=blue> Aspera Field Docker Build Form (circa 1997)</font></b><img src="../img/ani_dk_dk.gif" alt="dk" align="right" <br><br>
+		<b><font color=blue> Aspera Field Docker Build Form (circa 1997)</font></b><img src="../img/ani_dk_dk.gif" alt="dk" align="right"></img>
 		
 		<fieldset>
-			<legend><b> Host Configuration Options:</b></legend>
+			<br /><legend><b> Host Configuration Options:</b></legend>
 		Hostname: <input type="text" name="hostname" value="" />
-		(format should be asdk-affiliatename-p001)
+		(format should be asdk-affiliatename-p001 - where affilatename is abbreviated)
 		<br />
 
             Hardware: 
@@ -18,7 +18,7 @@
             (future functionality)
             <br />
 		</fieldset>
-
+		<br />
 		<fieldset>
 			<legend><b> ETH0 Management Configuration:</b></legend>
             eth0/MGMT MAC Address: <input type="text" name="eth0mac" value="" />
@@ -30,7 +30,7 @@
             eth0/MGMT GW Address: <input type="text" name="eth0gw" value="0.0.0.0" />
             <br />
 		</fieldset>
-
+		<br />
 		<fieldset>
 			<legend><b> ETH1 ASPERA Network Configuration:</b></legend>
             eth1/ASPERA MAC Address: <input type="text" name="eth1mac" value="" /> 
@@ -42,7 +42,7 @@
             eth1/ASPERA GW Address: <input type="text" name="eth1gw" value="0.0.0.0" /> 
             <br />
 		</fieldset>
-
+		<br />
 		<fieldset>
 			<legend><b> ETH2 Customer Network Configuration:</b></legend>
             eth2/Customer Network IP Address:  <input type="text" name="eth2ip" value="0.0.0.0" /> 
@@ -52,7 +52,7 @@
             eth2/Customer Network GW Address:  <input type="text" name="eth2gw" value="0.0.0.0" /> 
             <br />
 		</fieldset>
-
+		<br />
 		<fieldset>
 			<legend><b> ETH3 Network Configuration:</b></legend>
             eth3 IP Address: <input type="text" name="eth3ip" value="0.0.0.0" /> 
@@ -62,7 +62,7 @@
             eth3 GW Address: <input type="text" name="eth3gw" value="0.0.0.0" /> 
             <br />
 		</fieldset>
-
+		<br />
 		<fieldset>
 			<legend><b> ETH4 Network Configuration:</b></legend>
             eth4 IP Address: <input type="text" name="eth4ip" value="0.0.0.0" /> 
@@ -72,7 +72,7 @@
             eth4 GW Address: <input type="text" name="eth4gw" value="0.0.0.0" /> 
             <br />
 		</fieldset>
-
+		<br />
 		<fieldset>
 			<legend><b> ETH5 Network Configuration:</b></legend>
             eth5 IP Address: <input type="text" name="eth5ip" value="0.0.0.0" /> 
@@ -82,7 +82,7 @@
             eth5 GW Address: <input type="text" name="eth5gw" value="0.0.0.0" /> 
             <br />
 		</fieldset>
-
+		<br />
 		<fieldset>
 			<legend><b> IPMI Managment Configuration:</b></legend>
             IPMI/MGMT IP Address: <input type="text" name="ipmiip" value="0.0.0.0" /> 
@@ -92,15 +92,15 @@
             IPMI/MGMT GW Address: <input type="text" name="ipmigw" value="0.0.0.0" /> 
             <br />
 		</fieldset>
-
+		<br />
 		<fieldset>
 			<legend><b> Aspera Client Configuration:</b></legend>
             Aspera License Number: <input type="text" name="asplicense" value="" /> 
             <br />
 		</fieldset>
-
+		<br />
 		<fieldset>
-			<legend><b> FES Configuration (edit only if FES is required):</b></legend>
+			<legend><b> FES Configuration (edit only if FES PUSH is required):</b></legend>
             FES Config FTP Push Username: <input type="text" name="fesftpusername" value="" /> 
             <br />
             FES Config FTP Push Password: <input type="text" name="fesftppassword" value="" /> 
@@ -114,8 +114,7 @@
             FES Config SFTP Push SFTP Server IP: <input type="text" name="fessftpserverip" value="0.0.0.0" /> 
             <br />
 		</fieldset>
-
-
+		<br />
 		<input type="submit" value="Submit data">
 		</form>
 
