@@ -1,4 +1,4 @@
-#!/usr/local/rvm/rubies/ruby-2.1.4/bin/ruby -W
+#!/bin/env ruby
 
 # we're updating cobbler and puppet node manifest files
 # 
@@ -9,54 +9,36 @@
 # cobbler uses json, we might be able to create a json file and import it w/ the cobbler tool
 # otherwise we need to call the cobbler binary w/ values from the form input
 #
+#
 
-print "Content-type: text/html\n\n"
-print "<html><body>Processing form<br></body></html>"
 
-require 'cgi'
-require './keyvaluecheck.rb'
+# create the node.pp file;chown puppet:puppet the newly created node.pp file
+@hostname="asdk-test-p001"
+asplicense="12345"
+ipmiaddr="10.1.1.1"
+ipmigw="10.1.1.2"
 
-cgi = CGI.new('html5')
+nodePPFile = "./"+@hostname+".pp"
 
-# create an object of the form parameters
-fields = cgi.params 
+print "nodeppfile: ",nodePPFile,"\n"
 
-# create an instance of keyvaluecheck
-kvcheck = KeyValueCheck.new
-
-# track the amount of errors found in the submitted data, report back to user
-Errorcount = 0
-
-# loop through the parameters, verify the string value, write it out to the appropriate file(s)
-fields.each_pair do |key,value|
-	# print the values as we process
-	print "processing: #{key}:#{value}<br>"
-
-	# the first key should be the hostname.  use it to create the node manifest file
-	if key == "hostname" 
-		print "create a backup of the hostname.pp file<br>"
-		print "open a file handle for the new manifest file<br>" 
-		# else do nothing
-	end
-		
-	# for each key/value pair, pass each to the string check class
-	Errorcount = kvcheck.check("#{key}","#{value}")
-
-	# if a check fails, note the error to the user and set a flag so that we don't create
-	# any files or cobbler entries until the errors are fixed and resubmitted
+if (File.file?(nodePPFile)) 
+	print "node file already exists\n\n"  
+	else "creating file\n\n"
 end
 
-# if a check fails, note the error to the user and set a flag so that we don't create
-# any files or cobbler entries until the errors are fixed and resubmitted
-if Errorcount >= 1
-	print "<b>syntax errors found, fix the items above in <font color=red>red</font></b><br>"
-	print "<b>and resubmit.</b>"
-	exit
-end
+File.open(nodePPFile,File::WRONLY|File::CREAT|File::EXCL) { |file|
+file.print "testing"
+}
 
-# after verifying the form data, write out to the necessary files and call cobbler
-print "success!<br>"
 
-# create the field_prep.sh script.  this is to be executed prior to shutdown and shipment
-# to the affiliate
+
+
+
+
+
+
+
+
+
 
