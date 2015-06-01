@@ -9,13 +9,14 @@
 # cobbler uses json, we might be able to create a json file and import it w/ the cobbler tool
 # otherwise we need to call the cobbler binary w/ values from the form input
 #
-#
+# TODO: create editable text file for management of properties (hostname, eth0ip, etc.)
 
 $Verbose = "FALSE"
 
 print "Content-type: text/html\n\n"
 print "<html><body><font color=green>performing syntax check</font><br></body></html>"
 
+# "classes" - might as well be functions
 require 'cgi'
 require './keyvaluecheck.rb'
 require './createnodepp.rb'
@@ -114,7 +115,7 @@ end
 
 
 
-# execute cobbler 
+# execute the cobblers 
 # check the aspera license file
 # add fes configuration to the node.pp file 
 

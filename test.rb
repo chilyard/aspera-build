@@ -24,12 +24,14 @@ print "nodeppfile: ",nodePPFile,"\n"
 
 if (File.file?(nodePPFile)) 
 	print "node file already exists\n\n"  
+
 	else "creating file\n\n"
+	File.open(nodePPFile,File::WRONLY|File::CREAT|File::EXCL) { |file|
+	file.print "testing"
+	}
+	IO.popen("chown puppet:puppet #{nodePPFile}") 
 end
 
-File.open(nodePPFile,File::WRONLY|File::CREAT|File::EXCL) { |file|
-file.print "testing"
-}
 
 
 
