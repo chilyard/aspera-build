@@ -11,7 +11,7 @@
 #
 # TODO: create editable text file for management of properties (hostname, eth0ip, etc.)
 
-$Verbose = "FALSE"
+$Verbose = "TRUE"
 
 print "Content-type: text/html\n\n"
 print "<html><body><font color=green>performing syntax check</font><br></body></html>"
@@ -20,11 +20,12 @@ print "<html><body><font color=green>performing syntax check</font><br></body></
 require 'cgi'
 require './keyvaluecheck.rb'
 require './createnodepp.rb'
-
+require './cobbler.rb'
 
 # create an object of the form parameters 
 cgi = CGI.new('html5')
-fields = cgi.params 
+# our hash from the cgi params
+cgiFields = cgi.params 
 
 
 
@@ -41,7 +42,7 @@ Errorcount = 0
 # verify the content and quality of that content prior to taking any action.
 #
 # loop through the parameters, verify the string value, write it out to the appropriate file(s)
-fields.each_pair do |key,value|
+cgiFields.each_pair do |key,value|
 	# print the values as we process
 	print "processing: #{key}:#{value}<br>" if $Verbose == "TRUE"
 
@@ -79,56 +80,40 @@ print "<font color=green>syntax check complete!</font><br>"
 # time to create a node.pp file
 # ******************************************
 # create the node.pp file;chown puppet:puppet the newly created node.pp file
-#nodeppFile = "/tmp/",hostname+".pp"
-print "creating the node.pp file</br>"
 
 # create a createnodepp object
 createpp = CreateNodePP.new
-
-# track the amount of errors found in the submitted data, report back to user
-Errorcount = 0
-
-# run through the key,value pairs and pass them to the createnodepp class
-# 
-# re-using the existing CGI object
-#
-fields.each_pair do |key,value|
-	# print the values as we process
-	print "processing: #{key}:#{value}<br>" if $Verbose == "TRUE"
-
-	# for each key/value pair, pass each to the string check class
-	Returnstatus = createpp.build("#{key}","#{value}")
-	Errorcount += Returnstatus
-
-	# if a check fails, note the error to the user and set a flag so that we don't create
-	# any files or cobbler entries until the errors are fixed and resubmitted
-end
+Returnstatus = createpp.build(cgiFields)
 
 # if a check fails, note the error to the user and set a flag so that we don't create
 # any files or cobbler entries until the errors are fixed and resubmitted
-print "Errorcount >= 1:", Errorcount, "<br>" if $Verbose == "TRUE"
+print "Errorcount:", Errorcount, "<br>" if $Verbose == "TRUE"
 if Errorcount >= 1
-	print "<b><font color=red>createNodePP has errors, aborting</font></b><br>"
+	print "<b><font color=red>createNodePP has errors, check the file prior to initial boot</font></b><br>"
 	exit
 end
 
 
-
-
+# ******************************************
 # execute the cobblers 
+# ******************************************
+cobblerExec = TheCobblers.new
+Returnstatus = cobblerExec.pleasebeexecute(cgiFields)
+
+# if a check fails, note the error to the user and set a flag so that we don't create
+# any files or cobbler entries until the errors are fixed and resubmitted
+print "Errorcount:", Errorcount, "<br>" if $Verbose == "TRUE"
+if Errorcount >= 1
+	print "<b><font color=red>we suffered an ERROR while creating the cobbler entries</font></b><br>"
+	exit
+end
+
+
 # check the aspera license file
 # add fes configuration to the node.pp file 
-
+# static routes
 
 # create the field_prep.sh script.  this is to be executed prior to shutdown and shipment
 # to the affiliate
-
-
-
-
-
-
-
-
 
 

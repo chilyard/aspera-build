@@ -14,33 +14,12 @@
 
 # create the node.pp file;chown puppet:puppet the newly created node.pp file
 @hostname="asdk-test-p001"
-asplicense="12345"
-ipmiaddr="10.1.1.1"
-ipmigw="10.1.1.2"
-
-nodePPFile = "./"+@hostname+".pp"
-
-print "nodeppfile: ",nodePPFile,"\n"
-
-if (File.file?(nodePPFile)) 
-	print "node file already exists\n\n"  
-
-	else "creating file\n\n"
-	File.open(nodePPFile,File::WRONLY|File::CREAT|File::EXCL) { |file|
-	file.print "testing"
-	}
-	IO.popen("chown puppet:puppet #{nodePPFile}") 
-end
+@eth0mac = "00:00:00:00:00:01"
+@eth1mac = "00:00:00:00:00:02"
+@eth1ip = "192.168.100.100"
 
 
-
-
-
-
-
-
-
-
-
+IO.popen("/usr/bin/cobbler system add --name=#{@hostname} --profile=PRODUCTION_ASPERA-LEGACY:5:Vubiquity-Production --interface=eth0 --mac-address=#{@eth0mac} --netboot-enabled=Y") 
+IO.popen("/usr/bin/cobbler system edit --name=#{@hostname} --interface=eth1 --mac-address=#{@eth1mac} --ip-address=#{@eth1ip}") 
 
 
