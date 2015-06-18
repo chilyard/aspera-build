@@ -1,3 +1,11 @@
+#
+# handles calls to cobbler
+#
+## TODO: 
+# add checks on the system calls
+# add delete function
+
+
 
 class TheCobblers
 
@@ -7,7 +15,7 @@ class TheCobblers
 
 	def pleasebeexecute(hashOptions) 	
 		print "pleasebeexecute() called<br>" if $Verbose == "TRUE"
-		# how-to add a system to cobbler.  example data included
+		# how-to add a system to cobbler.  **examples only** included
 		#
 		# cobbler system add --name=asdk-digitrini-p001 --profile=PRODUCTION_ASPERA-LEGACY:5:Vubiquity-Production \
 		# --interface=eth0 --mac-address=0C:C4:7A:50:BB:68 --netboot-enabled=Y
@@ -17,16 +25,24 @@ class TheCobblers
 		
 		# set instance vars
 		@hostname = hashOptions["hostname"]
+		@fqdnhostname = "#{@hostname}"+".vubiquity.com"
 		@eth0mac = hashOptions["eth0mac"]
 		@eth1mac = hashOptions["eth1mac"]
 		@eth1ip = hashOptions["eth1ip"]
 
-		
-		IO.popen("/usr/bin/cobbler system add --name=#{@hostname} \
-		--profile=PRODUCTION_ASPERA-LEGACY:5:Vubiquity-Production --interface=eth0 --mac-address=#{@eth0mac} \
-		--netboot-enabled=Y")
-		IO.popen("/usr/bin/cobbler system edit --name=#{@hostname} --interface=eth1 --mac-address=#{@eth1mac} \
-		--ip-address=#{@eth1ip}")
+		if @eth1ip.empty? || @eth1mac.empty? 
+			print "eth1ip is unset<br>" if $Verbose == "TRUE"	
+
+			else
+			print "creating cobbler entries<br>" if $Verbose == "TRUE"
+			IO.popen("/usr/bin/cobbler system add --name=#{@hostname} --hostname=#{@fqdnhostname} \
+			--profile=PRODUCTION_ASPERA-LEGACY:5:Vubiquity-Production --interface=eth0 --mac-address=#{@eth0mac} \
+			--netboot-enabled=Y")
+			# need to wait a couple seconds for the previous command to complete and update the cobbler DB
+			sleep(2)
+			IO.popen("/usr/bin/cobbler system edit --name=#{@hostname} --interface=eth1 --mac-address=#{@eth1mac} \
+			--ip-address=#{@eth1ip}")
+		end
 	end
 
 end	

@@ -9,9 +9,11 @@
 # cobbler uses json, we might be able to create a json file and import it w/ the cobbler tool
 # otherwise we need to call the cobbler binary w/ values from the form input
 #
-# TODO: create editable text file for management of properties (hostname, eth0ip, etc.)
+# TODO: 
+# 1) create editable text file for management of properties (hostname, eth0ip, etc.)
+# 2) better exception and error handling
 
-$Verbose = "TRUE"
+$Verbose = "FALSE"
 
 print "Content-type: text/html\n\n"
 print "<html><body><font color=green>performing syntax check</font><br></body></html>"
@@ -48,7 +50,7 @@ cgiFields.each_pair do |key,value|
 
 	# the first key should be the hostname.  it's used to create the node manifest file
 	if key == "hostname" 
-		print "create a backup of the hostname.pp file<br>" if $Verbose == "TRUE"
+		print "create a backup of the hostname.pp file<br>" if $Verbose == ""
 		print "open a file handle for the new manifest file<br>" if $Verbose == "TRUE" 
 		# else do nothing
 	end
@@ -91,6 +93,9 @@ print "Errorcount:", Errorcount, "<br>" if $Verbose == "TRUE"
 if Errorcount >= 1
 	print "<b><font color=red>createNodePP has errors, check the file prior to initial boot</font></b><br>"
 	exit
+
+	else
+	print "<font color=green>createNodePP is complete!</font><br>"
 end
 
 
@@ -108,12 +113,27 @@ if Errorcount >= 1
 	exit
 end
 
+# ******************************************
+# simple check to verify the existence of 
+# an aspera license file
+# ******************************************
+asplicense = cgifields["asplicense"]
+if (File.file?("/etc/puppet/modules/asperaclient/files/license/#{asplicense}"))
+	print "<font color=green>aspera license found</font><br>" if $Verbose == "TRUE"
 
-# check the aspera license file
-# add fes configuration to the node.pp file 
-# static routes
+	else
+	print "<font color=red>aspera license MISSING</font><br>" if $Verbose == "TRUE"
+end
 
-# create the field_prep.sh script.  this is to be executed prior to shutdown and shipment
+
+
+# create the field_prep.rb script.  this is executed prior to shutdown and shipment
 # to the affiliate
+#
+# tasks:
+# 1) create /etc/sysconfig/network-scripts/route-eth1
+# 2) set eth0 IP in /etc/sysconfig/network-scripts/ifcfg-eth0 
+# 3) set eth0 GW address /etc/sysconfig/network
+# 4) update spacewalk IP
 
 

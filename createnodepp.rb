@@ -15,23 +15,27 @@ class CreateNodePP
 	def build(hashOptions)
 		print "in CreateNodePP::build<br>" if $Verbose == "TRUE"
 		@hostname = "#{hashOptions["hostname"]}"
-		@nodePPFile = "/tmp/#{@hostname}.pp"
+		@nodePPFile = "/etc/puppet/manifests/mynodes/FIELD/#{@hostname}.pp"
 		if (File.file?(@nodePPFile))
     		print "#{@nodePPFile} already exists - <font color=red>verify what's at this location. you'll need to \
 			remove the existing #{@nodePPFile} in order to complete this process.  click shift-reload \
 			when you're ready to proceed.</font><br>"
+			exit
 
     		else print "creating #{@nodePPFile} file<br>"
     		File.open(@nodePPFile,File::WRONLY|File::CREAT|File::EXCL) { |file|
 				#print "createnodepp: #{key}:#{value}<br>" if $Verbose == "TRUE"
 				file.print "node \'", hashOptions["hostname"],"\' inherits asdk_us {\n"
+				file.print "\n	\#Aspera Configuration\n"
 				file.print "	$asperalicense = \"",hashOptions["asplicense"],"\"\n"
+				file.print "\n	\#IPMI Configuration\n"
 				file.print "	$ipmiaddr = \"",hashOptions["ipmiip"],"\"\n"
 				file.print "	$ipmigw = \"",hashOptions["ipmigw"],"\"\n"
 				file.print "	$ipmism = \"",hashOptions["ipmism"],"\"\n"
 				file.print "	$MGMT = \"eth0\"\n"
 				file.print "	$ASP = \"eth1\"\n"
 				file.print "	$CUST = \"eth2\"\n"
+				file.print "\n	\#Network Configuration\n"
 				file.print "	$eth0mac = \"",hashOptions["eth0mac"],"\"\n" 
 				file.print "	$eth0ip = \"",hashOptions["eth0ip"],"\"\n"   
 				file.print "	$eth0sm = \"",hashOptions["eth0sm"],"\"\n"  
@@ -56,17 +60,19 @@ class CreateNodePP
 				file.print "	$eth5ip = \"",hashOptions["eth5ip"],"\"\n"  
 				file.print "	$eth5sm = \"",hashOptions["eth5sm"],"\"\n"  
 				file.print "	$eth5gw = \"",hashOptions["eth5gw"],"\"\n"  
+				file.print "\n	\#FES Configuration\n"
+				file.print " 	$fesmovetype = \"",hashOptions["fesmovetype"],"\"\n"  
 				file.print " 	$fesftpusername = \"",hashOptions["fesftpusername"],"\"\n"  
 				file.print " 	$fesftppassword = \"",hashOptions["fesftppassword"],"\"\n"  
 				file.print " 	$fesftpserverip = \"",hashOptions["fesftpserverip"],"\"\n"  
 				file.print " 	$fessftpusername = \"",hashOptions["fessftpusername"],"\"\n"  
 				file.print " 	$fessftppassword = \"",hashOptions["fessftppassword"],"\"\n"  
 				file.print " 	$fessftpserverip = \"",hashOptions["fesftpserverip"],"\"\n"  
-				file.print "\n"
+				file.print "\n	\#Includes\n"
 				file.print "	include asdk_firewalld\n"
 				file.print "	include ipmi\n"
 				file.print "	include asperaclient\n"
-				file.print "	include fes\n"
+				file.print "	\#include fes\n"
 				file.print " }\n"
 				file.close
     		}

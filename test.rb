@@ -11,15 +11,15 @@
 #
 #
 
-
 # create the node.pp file;chown puppet:puppet the newly created node.pp file
 @hostname="asdk-test-p001"
 @eth0mac = "00:00:00:00:00:01"
 @eth1mac = "00:00:00:00:00:02"
 @eth1ip = "192.168.100.100"
 
+if (File.file?("/etc/puppet/modules/asperaclient/files/license/96969.aspera-license"))
+	print "aspera license found"
 
-IO.popen("/usr/bin/cobbler system add --name=#{@hostname} --profile=PRODUCTION_ASPERA-LEGACY:5:Vubiquity-Production --interface=eth0 --mac-address=#{@eth0mac} --netboot-enabled=Y") 
-IO.popen("/usr/bin/cobbler system edit --name=#{@hostname} --interface=eth1 --mac-address=#{@eth1mac} --ip-address=#{@eth1ip}") 
-
-
+	else
+	print "aspera license missing"
+end

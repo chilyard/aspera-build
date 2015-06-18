@@ -291,7 +291,7 @@ class KeyValueCheck
 
 		# festype
 		when "fesmovetype"
-			if value.match(/pull|sftp_push|ftp_push/)
+			if value.match(/pull/)
 				print "fesmovetype looks good<br>" if $Verbose == "TRUE"
 				return 0
 
