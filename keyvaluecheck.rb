@@ -27,7 +27,7 @@ class KeyValueCheck
 		
 		# eth0mac
 		when "eth0mac"
-			if value.match(/([0-9a-fA-F]{2}[:-]){5}[0-9a-fA-F]{2}/i)
+			if value.match(/([0-9A-F]{2}[:-]){5}[0-9A-F]{2}$/i)
 				print "eth0 MAC looks good<br>" if $Verbose == "TRUE"
 				return 0
 
@@ -71,7 +71,7 @@ class KeyValueCheck
 
 		# eth1mac
 		when "eth1mac"
-			if value.match(/([0-9a-fA-F]{2}[:-]){5}[0-9a-fA-F]{2}/i)
+			if value.match(/([0-9A-F]{2}[:-]){5}[0-9A-F]{2}$/i)
 				print "eth1mac looks good<br>" if $Verbose == "TRUE"
 				return 0
 
@@ -110,6 +110,17 @@ class KeyValueCheck
 
 				else
 				print "<b><font color=red>eth1gw is bad, m'kay.</font></b><br>"
+				return 1
+		end
+
+		# check the asperastaticroute value
+		when "asperastaticroute"
+			if value.match(/^eth[0-5]/i)
+				print "asperastaticroute looks good<br>" if $Verbose == "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>asperastaticroute is b0rked, m'kay.</font></b><br>"
 				return 1
 		end
 
@@ -366,10 +377,21 @@ class KeyValueCheck
 				return 1
 		end
 
+		# test mode
+		when "verbosemode"
+			if value.match(/true/i)
+				print "enabling test mode<br>" 	
+				$Verbose = "TRUE"
+				return 0
+
+				else
+				print "<b><font color=red>verbosemode is bad, m'kay.</font></b><br>"
+				return 1
+		end
 
 		# else
 		else
-			print "unknown key: ", key, "<br>"
+			print "unknown key: ", key, "<br>" if $Verbose == "TRUE"
 			return 0
 		end 
 		## end case statement

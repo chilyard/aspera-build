@@ -12,6 +12,9 @@
 		<img src="../img/ani_dk_dk.gif" alt="dk" align="right"></img>
 		
 <pre>
+<input name="verbosemode" value="true" type="checkbox">Verbose Mode</>
+
+<pre>
 <fieldset>
 <legend><font color=blue><b>Host Configuration Options:</b></font></legend>
 Hostname: <input type="text" name="hostname" value="" /> (format should be asdk-affiliatename-p001 - where affilatename is a reasonable abbreviation)
@@ -19,12 +22,9 @@ Hardware: <select name="hardware">
 <option value="3011">SuperMicro 3011</option>
 <option value="2011">SuperMicro 2011</option>
 </select>       (future functionality)
-</fieldset>
-</legend>
-</pre>
+</fieldset></legend></pre>
 
-<pre>
-<fieldset>
+<pre><fieldset>
 <legend><b><font color=blue>Network Configuration:</font></b></legend>
 <b>IPMI Managment Network Configuration:</b>
 IPMI/MGMT IP Address: 	<input type="text" name="ipmiip" value="0.0.0.0" /> 
@@ -42,6 +42,15 @@ eth1/ASPERA MAC Address:<input type="text" name="eth1mac" value="" />
 eth1/ASPERA IP Address: <input type="text" name="eth1ip" value="0.0.0.0" /> 
 eth1/ASPERA SM Address: <input type="text" name="eth1sm" value="0.0.0.0" /> 
 eth1/ASPERA GW Address: <input type="text" name="eth1gw" value="0.0.0.0" /> 
+
+-Create Static Route for Aspera Traffic on:<select name="asperastaticroute">
+<option value="eth0">ETH0</option>
+<option selected="selected" value="eth1">ETH1</option>
+<option value="eth2">ETH2</option>
+<option value="eth3">ETH3</option>
+<option value="eth4">ETH4</option>
+<option value="eth5">ETH5</option>
+</select> (defaults to ETH1)
 <br>
 <b>ETH2 Customer Network Configuration:</b>
 eth2/Customer Network IP Address:  <input type="text" name="eth2ip" value="0.0.0.0" /> 
@@ -62,22 +71,17 @@ eth4 GW Address: <input type="text" name="eth4gw" value="0.0.0.0" />
 eth5 IP Address: <input type="text" name="eth5ip" value="0.0.0.0" /> 
 eth5 SM Address: <input type="text" name="eth5sm" value="0.0.0.0" /> 
 eth5 GW Address: <input type="text" name="eth5gw" value="0.0.0.0" /> 
-<br>
-</fieldset>
-</pre>
-<pre>
-<fieldset>
+<br></fieldset></pre>
+<pre><fieldset>
 <legend><b><font color=blue> Aspera Client Configuration:</font></b></legend>
 Aspera License Number: <input type="text" name="asplicense" value="" /> 
-<br />
-</fieldset>
-</pre>
+<br /></fieldset></pre>
 
 <pre>
 <fieldset>
 <legend><b><font color=blue> FES Configuration (defaults to 'pull'):</font></b></legend>
 FES type:<select name="fesmovetype">
-<option value="pull">Pull</option>
+<option selected="selected" value="pull">Pull</option>
 <option value="ftp_push">FTP Push</option>
 <option value="sftp_push">SFTP Push</option>
 </select>

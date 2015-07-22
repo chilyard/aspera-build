@@ -13,8 +13,6 @@
 # 1) create editable text file for management of properties (hostname, eth0ip, etc.)
 # 2) better exception and error handling
 
-$Verbose = "FALSE"
-
 print "Content-type: text/html\n\n"
 print "<html><body><font color=green>performing syntax check</font><br></body></html>"
 
